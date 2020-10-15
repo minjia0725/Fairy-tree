@@ -1,7 +1,9 @@
 <template>
   <div>
     <div class="text-right">
-      <button class="btn btn-info mt-4" @click="openModal">建立新產品</button>
+      <button class="btn btn-primary mt-4" @click="openModal(true)">
+        建立新產品
+      </button>
     </div>
     <table class="table mt-4 text-nowrap table-responsive-md">
       <thead>
@@ -19,17 +21,28 @@
           <td>{{ item.category }}</td>
           <td>{{ item.title }}</td>
           <td class="text-right">
-            {{ item.origin_price | currency | dollor }}
+            {{ item.origin_price }}
           </td>
           <td class="text-right">
-            {{ item.price | currency | dollor }}
+            {{ item.price }}
           </td>
           <td>
             <span v-if="item.is_enabled" class="text-success">啟用</span>
-            <span>未啟用</span>
+            <span v-if="!item.is_enabled">未啟用</span>
           </td>
           <td>
-            <button class="btn btn-outline-primary btn-sm">編輯</button>
+            <button
+              class="btn btn-outline-info btn-sm"
+              @click="openModal(false, item)"
+            >
+              編輯
+            </button>
+            <button
+              class="btn btn-outline-danger btn-sm"
+              @click="deleteModel(item)"
+            >
+              刪除
+            </button>
           </td>
         </tr>
       </tbody>
@@ -46,7 +59,7 @@
         <div class="modal-content border-0">
           <div class="modal-header bg-dark text-white">
             <h5 class="modal-title" id="exampleModalLabel">
-              <span>新增產品</span>
+              <span>{{ modalTitle }}</span>
             </h5>
             <button
               type="button"
@@ -82,12 +95,7 @@
                     ref="files"
                   />
                 </div>
-                <img
-                  img="https://images.unsplash.com/photo-1483985988355-763728e1935b?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=828346ed697837ce808cae68d3ddc3cf&auto=format&fit=crop&w=1350&q=80"
-                  class="img-fluid"
-                  alt=""
-                  :scr="temProduct.imageUrl"
-                />
+                <img class="img-fluid" alt="" :src="temProduct.imageUrl" />
               </div>
               <div class="col-sm-8">
                 <div class="form-group">
@@ -205,6 +213,49 @@
         </div>
       </div>
     </div>
+    <div
+      class="modal fade"
+      id="delProductModal"
+      tabindex="-1"
+      role="dialog"
+      aria-labelledby="delProductModal"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog" role="document">
+        <div class="modal-content border-0">
+          <div class="modal-header bg-danger text-white">
+            <h5 class="modal-title">
+              <span>刪除產品</span>
+            </h5>
+            <button
+              type="button"
+              class="close"
+              data-dismiss="modal"
+              aria-label="Close"
+            >
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            是否刪除
+            <strong class="text-danger">{{ temProduct.title }}</strong>
+            商品(刪除後將無法恢復)。
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-outline-secondary"
+              data-dismiss="modal"
+            >
+              取消
+            </button>
+            <button type="button" class="btn btn-danger" @click="delProduct">
+              確認刪除
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -217,6 +268,8 @@ export default {
     return {
       products: [],
       temProduct: {},
+      isNew: false,
+      modalTitle: "新增產品",
     };
   },
   methods: {
@@ -228,16 +281,44 @@ export default {
         vm.products = response.data.products;
       });
     },
-    openModal() {
+    openModal(isNew, item) {
+      if (isNew) {
+        this.temProduct = {};
+        this.isNew = true;
+      } else if (!isNew) {
+        this.modalTitle = "編輯產品";
+        this.temProduct = Object.assign({}, item); //Object.assign會將值寫到新的物件
+        this.isNew = false;
+      }
       $("#productModal").modal("show");
     },
+    deleteModel(item) {
+      $("#delProductModal").modal("show");
+      this.temProduct = Object.assign({}, item);
+    },
     upadteProduct() {
-      const api = `${process.env.APIPATH}api/${process.env.CUSTOMPATH}/admin/product`;
+      let api = `${process.env.APIPATH}api/${process.env.CUSTOMPATH}/admin/product`;
+      let httpMethod = "post";
       const vm = this;
-      this.$http.post(api,{ data:vm.temProduct }).then((response) => {
-        console.log(response.data);
-        // vm.products = response.data.products;
+      if (!vm.isNew) {
+        api = `${process.env.APIPATH}api/${process.env.CUSTOMPATH}/admin/product/${vm.temProduct.id}`;
+        httpMethod = "put";
+      }
+      this.$http[httpMethod](api, { data: vm.temProduct }).then((response) => {
+        if (response.data.success) {
+          $("#productModal").modal("hide");
+          vm.getProducts();
+        } else {
+          $("#productModal").modal("hide");
+          vm.getProducts();
+          console.log("新增失敗");
+        }
       });
+    },
+    delProduct(item) {
+      const api = `${process.env.APIPATH}api/${process.env.CUSTOMPATH}/admin/product/${vm.temProduct.id}`;
+      this.$http.delete(api, { data: vm.temProduct });
+      this.getProducts();
     },
   },
   created() {

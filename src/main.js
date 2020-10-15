@@ -16,13 +16,13 @@ axios.defaults.withCredentials = true;
 // window.$ = jquery;
 /* eslint-disable no-new */
 
-Vue.filter("currency", (n) => {
-  //這邊的n是 item.icash 傳入的
-  return n.toFixed(2).replace(/./g, function (c, i, a) {
-    return i && c !== "." && (a.length - i) % 3 === 0 ? "," + c : c;
-  });
-});
-Vue.filter("dollor", (n) => `$ ${n}`);
+// Vue.filter("currency", (n) => {
+//   //這邊的n是 item.icash 傳入的
+//   return n.toFixed(2).replace(/./g, function (c, i, a) {
+//     return i && c !== "." && (a.length - i) % 3 === 0 ? "," + c : c;
+//   });
+// });
+// Vue.filter("dollor", (n) => `$ ${n}`);
 
 
 new Vue({
