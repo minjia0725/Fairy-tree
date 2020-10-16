@@ -1,6 +1,7 @@
 <template>
   <div>
     <navbar></navbar>
+    <alertMessage></alertMessage>
     <div class="container-fluid">
       <div class="row">
         <sidebar></sidebar>
@@ -15,11 +16,13 @@
 <script>
 import sidebar from "./sidebar";
 import navbar from "./navbar";
+import alertMessage from "./alertMessage"
 
 export default {
   components: {
     sidebar,
     navbar,
+    alertMessage,
   },
   created () {
     const myCookie = document.cookie.replace(/(?:(?:^|.*;\s*)hexToken\s*=\s*([^;]*).*$)|^.*$/, "$1");

@@ -1,5 +1,6 @@
 <template>
   <div>
+    <loading :active.sync="isLoading"></loading>
     <div class="text-right">
       <button class="btn btn-primary mt-4" @click="openModal(true)">
         建立新產品
@@ -47,6 +48,7 @@
         </tr>
       </tbody>
     </table>
+    <Pagination :pages="pagination" @page="getProducts"></Pagination>
     <div
       class="modal fade"
       id="productModal"
@@ -86,13 +88,17 @@
                 <div class="form-group">
                   <label for="customFile"
                     >或 上傳圖片
-                    <i class="fas fa-spinner fa-spin"></i>
+                    <i
+                      class="fas fa-spinner fa-spin"
+                      v-if="status.fileUploading"
+                    ></i>
                   </label>
                   <input
                     type="file"
                     id="customFile"
                     class="form-control"
                     ref="files"
+                    @change="uploadFile"
                   />
                 </div>
                 <img class="img-fluid" alt="" :src="temProduct.imageUrl" />
@@ -260,25 +266,38 @@
 </template>
 
 <script>
-/* global $ */ //ESlint
+/* global $ */ //ESlint用的
 import $ from "jquery";
+import Pagination from "./pagination";
 
 export default {
   data() {
     return {
       products: [],
-      temProduct: {},
+      pagination: {},
+      temProduct: {}, //modal用的
       isNew: false,
       modalTitle: "新增產品",
+      isLoading: false, //全域的loading
+      status: {
+        //局部的loading
+        fileUploading: false,
+      },
     };
   },
+  components: { //載入元件
+        Pagination
+    },
   methods: {
-    getProducts() {
-      const api = `${process.env.APIPATH}api/${process.env.CUSTOMPATH}/products`;
+    getProducts(page = 1) {
+      const api = `${process.env.APIPATH}api/${process.env.CUSTOMPATH}/products?page=${page}`;
       const vm = this;
+      vm.isLoading = true;
       this.$http.get(api).then((response) => {
-        // console.log(response.data);
+        console.log(response.data);
+        vm.isLoading = false;
         vm.products = response.data.products;
+        vm.pagination = response.data.pagination;
       });
     },
     openModal(isNew, item) {
@@ -294,13 +313,14 @@ export default {
     },
     deleteModel(item) {
       $("#delProductModal").modal("show");
-      this.temProduct = Object.assign({}, item);
+      this.temProduct = item;
     },
     upadteProduct() {
       let api = `${process.env.APIPATH}api/${process.env.CUSTOMPATH}/admin/product`;
       let httpMethod = "post";
       const vm = this;
       if (!vm.isNew) {
+        //當vm.isNew = false
         api = `${process.env.APIPATH}api/${process.env.CUSTOMPATH}/admin/product/${vm.temProduct.id}`;
         httpMethod = "put";
       }
@@ -315,10 +335,41 @@ export default {
         }
       });
     },
-    delProduct(item) {
+    delProduct() {
+      const vm = this;
       const api = `${process.env.APIPATH}api/${process.env.CUSTOMPATH}/admin/product/${vm.temProduct.id}`;
-      this.$http.delete(api, { data: vm.temProduct });
-      this.getProducts();
+      this.$http.delete(api, { data: vm.temProduct }).then(response => {
+        if(response.data.success) {
+          $("#delProductModal").modal("hide");
+          this.getProducts();
+        }
+      });
+    },
+    uploadFile() {
+      //上傳圖片
+      const uploadedFile = this.$refs.files.files[0]; //取出上傳圖片的檔案
+      const vm = this;
+      const formData = new FormData(); //建立物件
+      formData.append("file-to-upload", uploadedFile);
+      const url = `${process.env.APIPATH}api/${process.env.CUSTOMPATH}/admin/upload`;
+      vm.status.fileUploading = true; //上傳中改true顯示loading圖案
+      this.$http
+        .post(url, formData, {
+          headers: {
+            //Content-type 表頭資訊 (header) 是指告訴客戶端實際返回的內容的內容類型
+            "Content-Type": "multipart/form-data",
+          },
+        })
+        .then((response) => {
+          vm.status.fileUploading = false;
+          if (response.data.success) {
+            // vm.temProduct.imageUrl = response.data.imageUrl;//這個沒有雙向綁定
+            vm.$set(vm.temProduct, "imageUrl", response.data.imageUrl); //運用$set強制雙向綁定
+          } else {
+            console.log(response.data);
+            this.$bus.$emit("message:push", response.data.message, "danger");
+          }
+        });
     },
   },
   created() {

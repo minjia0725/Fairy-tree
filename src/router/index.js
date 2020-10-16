@@ -3,7 +3,7 @@ import Router from 'vue-router'
 // import home from '@/components/home'
 import dashboard from '@/components/dashboard'
 import login from '@/components/pages/login'
-import products from '@/components/pages/products'
+import products from '@/components/products'
 
 Vue.use(Router)
 
