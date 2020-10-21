@@ -1,0 +1,10 @@
+.customerNavbar{
+  &-btn-style{
+    border-color:$primary ;
+    color:$primary ;
+        &:hover,&.active{
+            background-color: $primary;
+            color: white;
+        }
+  }
+}

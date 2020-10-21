@@ -60,6 +60,11 @@
               購物車
             </router-link>
           </li>
+          <li class="nav-item">
+            <router-link class="nav-link" to="/simulation/checkOut">
+              結帳
+            </router-link>
+          </li>
         </ul>
       </div>
     </nav>

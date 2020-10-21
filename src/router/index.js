@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-// import home from '@/components/home'
+import home from '@/components/home'
 import dashboard from '@/components/dashboard'
 import login from '@/components/pages/login'
 import products from '@/components/pages/products'
@@ -8,6 +8,10 @@ import coupons from '@/components/pages/coupons'
 import order from '@/components/pages/order'
 import customerOrders from '@/components/pages/customerOrders'
 import cart from '@/components/pages/cart'
+import checkOut from '@/components/pages/Checkout'
+import customerCheckOut from '@/components/pages/customerCheckout'
+import aboutYou from '@/components/aboutYou'
+
 
 Vue.use(Router)
 
@@ -18,7 +22,7 @@ Router.prototype.push = function push(location) {
 }
 
 export default new Router({
-  linkActiveClass:'active',
+  linkActiveClass: 'active',
   routes: [
     {
       path: '*',
@@ -26,6 +30,18 @@ export default new Router({
     },
     {
       path: '/',
+      name: 'index',
+      component: home,
+      children: [
+        {
+          path: 'aboutYou',
+          name: 'AboutYou',
+          component: aboutYou
+        }
+      ]
+    },
+    {
+      path: '/login',
       name: 'Login',
       component: login
     },
@@ -68,6 +84,16 @@ export default new Router({
           path: 'cart',
           name: 'Cart',
           component: cart,
+        },
+        {
+          path: 'checkOut',
+          name: 'CheckOut',
+          component: checkOut,
+        },
+        {
+          path: 'customerCheckOut/:orderId',
+          name: 'CustomerCheckOut',
+          component: customerCheckOut,
         },
       ]
     },

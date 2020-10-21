@@ -13,11 +13,11 @@
       </thead>
       <tbody>
         <tr v-for="item in Orders" :key="item.id">
-          <td>{{item.paid_date | date}}</td>
+          <td>{{item.create_at | date}}</td>
           <td>{{item.user.email}}</td>
           <td>
             <ul class="list-unstyled">
-              <li v-if="(product, i) in item.products" :key="i">
+              <li v-for="(product, i) in item.products" :key="i">
                 {{ product.product.title }} 數量 {{ product.qty }} {{ product.product.unit }}
               </li>
             </ul>

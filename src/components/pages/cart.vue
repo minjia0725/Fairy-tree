@@ -64,16 +64,6 @@
             </button>
           </div>
         </div>
-        <div class="form-group mt-4">
-          <label for="exampleInputEmail1">Email</label>
-          <input
-            type="email"
-            class="form-control"
-            id="exampleInputEmail1"
-            aria-describedby="emailHelp"
-            placeholder="請輸入Email"
-          />
-        </div>
       </div>
     </div>
   </div>
