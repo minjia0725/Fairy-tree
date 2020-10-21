@@ -9,24 +9,20 @@ import 'bootstrap'
 import App from './App';
 import router from './router';
 import './bus';
+import dateFilter from "./components/filters/date"
+import currencyFilter from "./components/filters/currency"
 // import jquery from 'jquery';
 
 
 Vue.config.productionTip = false;
 Vue.use(VueAxios, axios);
 Vue.component('Loading',Loading)
+Vue.filter('currency',currencyFilter)
+Vue.filter('date',dateFilter)
 
 axios.defaults.withCredentials = true;
 // window.$ = jquery;
 /* eslint-disable no-new */
-
-// Vue.filter("currency", (n) => {
-//   //這邊的n是 item.icash 傳入的
-//   return n.toFixed(2).replace(/./g, function (c, i, a) {
-//     return i && c !== "." && (a.length - i) % 3 === 0 ? "," + c : c;
-//   });
-// });
-// Vue.filter("dollor", (n) => `$ ${n}`);
 
 
 new Vue({

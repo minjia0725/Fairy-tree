@@ -56,7 +56,7 @@ export default {
           const expired = response.data.expired
           console.log(token,expired);
           document.cookie = `hexToken=${token}; expires=${new Date(expired)}, 31 Dec 9999 23:59:59 GMT;`;
-          vm.$router.push('/dashboard') //登入成功路由轉到/dashboard
+          vm.$router.push('/admin/products') //登入成功路由轉到/dashboard
         }
       });
     },
