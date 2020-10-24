@@ -51,16 +51,6 @@
         </h6>
         <ul class="nav flex-column mb-2">
           <li class="nav-item">
-            <router-link class="nav-link" to="/simulation/customerOrders">
-              模擬商品頁面
-            </router-link>
-          </li>
-          <li class="nav-item">
-            <router-link class="nav-link" to="/simulation/cart">
-              購物車
-            </router-link>
-          </li>
-          <li class="nav-item">
             <router-link class="nav-link" to="/simulation/checkOut">
               結帳
             </router-link>

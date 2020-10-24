@@ -277,7 +277,7 @@ export default {
       pagination: {},
       temProduct: {}, //modal用的
       isNew: false,
-      modalTitle: "新增產品",
+      modalTitle: "",
       isLoading: false, //全域的loading
       status: {
         //局部的loading
@@ -303,6 +303,7 @@ export default {
     openModal(isNew, item) {
       if (isNew) {
         this.temProduct = {};
+        this.modalTitle = "新增產品";
         this.isNew = true;
       } else if (!isNew) {
         this.modalTitle = "編輯產品";

@@ -26,11 +26,17 @@ $xl: 1200px;
     }
 }
 
-body{
-  background: #f7e9e0;
-}
+// body{
+//   background: #f7e9e0;
+// }
 
+.bg-contain{
+    background-position: center center;
+    background-size: contain;
+    background-repeat: no-repeat;
+}
 .bg-cover{
     background-position: center center;
     background-size: cover;
+    background-repeat: no-repeat;
 }

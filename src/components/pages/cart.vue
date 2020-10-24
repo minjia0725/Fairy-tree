@@ -1,6 +1,6 @@
 <template>
   <div>
-    <loading :active.sync="isLoading"></loading>
+    <loading :active.sync="isLoading" class="text-center"></loading>
     <div class="row mt-4 justify-content-center">
       <div class="col-md-6">
         <table class="table">

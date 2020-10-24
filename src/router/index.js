@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import home from '@/components/home'
+import index from '@/components/index'
+import home from '@/components/pages/home'
 import dashboard from '@/components/dashboard'
 import login from '@/components/pages/login'
 import products from '@/components/pages/products'
@@ -31,13 +32,28 @@ export default new Router({
     {
       path: '/',
       name: 'index',
-      component: home,
+      component: index,
       children: [
+        {
+          path: '',
+          name: 'Home',
+          component: home
+        },
         {
           path: 'aboutYou',
           name: 'AboutYou',
           component: aboutYou
-        }
+        },
+        {
+          path: 'customerOrders',
+          name: 'CustomerOrders',
+          component: customerOrders,
+        },
+        {
+          path: 'cart',
+          name: 'Cart',
+          component: cart,
+        },
       ]
     },
     {
@@ -75,16 +91,8 @@ export default new Router({
       name: 'simulation',
       component: dashboard,
       children: [
-        {
-          path: 'customerOrders',
-          name: 'CustomerOrders',
-          component: customerOrders,
-        },
-        {
-          path: 'cart',
-          name: 'Cart',
-          component: cart,
-        },
+        
+        
         {
           path: 'checkOut',
           name: 'CheckOut',
