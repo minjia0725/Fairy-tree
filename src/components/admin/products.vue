@@ -1,6 +1,14 @@
 <template>
   <div>
-    <loading :active.sync="isLoading"></loading>
+    <loading
+      :active.sync="isLoading"
+      :can-cancel="true"
+      :loader="'dots'"
+      :color="'black'"
+      :width="100"
+      :background-color="'rgba(148,148,148)'"
+    >
+    </loading>
     <div class="text-right">
       <button class="btn btn-primary mt-4" @click="openModal(true)">
         建立新產品
@@ -22,10 +30,10 @@
           <td>{{ item.category }}</td>
           <td>{{ item.title }}</td>
           <td class="text-right">
-            {{ item.origin_price | currency}}
+            {{ item.origin_price | currency }}
           </td>
           <td class="text-right">
-            {{ item.price | currency}}
+            {{ item.price | currency }}
           </td>
           <td>
             <span v-if="item.is_enabled" class="text-success">啟用</span>
@@ -285,9 +293,10 @@ export default {
       },
     };
   },
-  components: { //載入元件
-        Pagination
-    },
+  components: {
+    //載入元件
+    Pagination,
+  },
   methods: {
     getProducts(page = 1) {
       const api = `${process.env.APIPATH}api/${process.env.CUSTOMPATH}/products?page=${page}`;
@@ -319,7 +328,7 @@ export default {
     upadteProduct() {
       let api = `${process.env.APIPATH}api/${process.env.CUSTOMPATH}/admin/product`;
       let httpMethod = "post";
-      const id = this.$refs.files.id
+      const id = this.$refs.files.id;
       const vm = this;
       if (!vm.isNew) {
         //當vm.isNew = false
@@ -330,7 +339,7 @@ export default {
         if (response.data.success) {
           $("#productModal").modal("hide");
           vm.getProducts();
-          document.getElementById(id).value = '';
+          document.getElementById(id).value = "";
         } else {
           $("#productModal").modal("hide");
           vm.getProducts();
@@ -341,8 +350,8 @@ export default {
     delProduct() {
       const vm = this;
       const api = `${process.env.APIPATH}api/${process.env.CUSTOMPATH}/admin/product/${vm.temProduct.id}`;
-      this.$http.delete(api, { data: vm.temProduct }).then(response => {
-        if(response.data.success) {
+      this.$http.delete(api, { data: vm.temProduct }).then((response) => {
+        if (response.data.success) {
           $("#delProductModal").modal("hide");
           this.getProducts();
         }
@@ -368,7 +377,6 @@ export default {
           if (response.data.success) {
             // vm.temProduct.imageUrl = response.data.imageUrl;//這個沒有雙向綁定
             vm.$set(vm.temProduct, "imageUrl", response.data.imageUrl); //運用$set強制雙向綁定
-            
           } else {
             console.log(response.data);
             this.$bus.$emit("message:push", response.data.message, "danger");

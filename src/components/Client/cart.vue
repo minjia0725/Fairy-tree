@@ -1,6 +1,14 @@
 <template>
   <div>
-    <loading :active.sync="isLoading" class="text-center"></loading>
+    <loading
+      :active.sync="isLoading"
+      :can-cancel="true"
+      :loader="'dots'"
+      :color="'black'"
+      :width="100"
+      :background-color="'rgba(148,148,148)'"
+    >
+    </loading>
     <div class="row mt-4 justify-content-center">
       <div class="col-md-6">
         <table class="table">
@@ -85,6 +93,7 @@ export default {
       const vm = this;
       vm.isLoading = true;
       this.$http.get(api).then((res) => {
+        console.log(res);
         vm.cartProducts = res.data.data;
         vm.isLoading = false;
       });

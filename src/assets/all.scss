@@ -1,9 +1,10 @@
 @import "~bootstrap/scss/functions";
 @import "./helpers/variables";
 @import "~bootstrap/scss/bootstrap";
-@import "./dashboard";
-@import "./uilities";
-@import "./customerNavbar";
-@import "./customerOrders";
-@import "./home";
-@import "./footer";
+@import "./components/dashboard";
+@import "./components/uilities";
+@import "./components/customerNavbar";
+@import "./components/customerProducts";
+@import "./components/customerProduct";
+@import "./components/home";
+@import "./components/footer";

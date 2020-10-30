@@ -1,17 +1,20 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import index from '@/components/index'
-import home from '@/components/pages/home'
-import dashboard from '@/components/dashboard'
-import login from '@/components/pages/login'
-import products from '@/components/pages/products'
-import coupons from '@/components/pages/coupons'
-import order from '@/components/pages/order'
-import customerOrders from '@/components/pages/customerOrders'
-import cart from '@/components/pages/cart'
-import checkOut from '@/components/pages/Checkout'
-import customerCheckOut from '@/components/pages/customerCheckout'
-import aboutYou from '@/components/aboutYou'
+import backstage from '@/components/admin/Backstage'
+import login from '@/components/admin/login'
+import products from '@/components/admin/products'
+import coupons from '@/components/admin/coupons'
+import order from '@/components/admin/order'
+import checkOut from '@/components/admin/Checkout'
+import home from '@/components/Client/home'
+import customerProducts from '@/components/Client/customerProducts'
+import customerProduct from '@/components/Client/customerProduct'
+import customerCheckOut from '@/components/Client/customerCheckout'
+import favorites from '@/components/Client/favorites'
+import cart from '@/components/Client/cart'
+
+
 
 
 Vue.use(Router)
@@ -23,15 +26,15 @@ Router.prototype.push = function push(location) {
 }
 
 export default new Router({
-  linkActiveClass: 'active',
+  linkActiveClass:"active",
   routes: [
     {
       path: '*',
-      redirect: '/'
+      redirect: '/home'
     },
     {
       path: '/',
-      name: 'index',
+      name: '',
       component: index,
       children: [
         {
@@ -40,14 +43,19 @@ export default new Router({
           component: home
         },
         {
-          path: 'aboutYou',
-          name: 'AboutYou',
-          component: aboutYou
+          path: 'customerProducts',
+          name: 'CustomerProducts',
+          component: customerProducts,
         },
         {
-          path: 'customerOrders',
-          name: 'CustomerOrders',
-          component: customerOrders,
+          path: 'customerProduct/:productId',
+          name: 'CustomerProduct',
+          component: customerProduct,
+        },
+        {
+          path: 'favorites',
+          name: 'Favorites',
+          component: favorites,
         },
         {
           path: 'cart',
@@ -64,7 +72,7 @@ export default new Router({
     {
       path: '/admin',
       name: 'admin',
-      component: dashboard,
+      component: backstage,
       children: [
         {
           path: 'products',
@@ -89,10 +97,8 @@ export default new Router({
     {
       path: '/simulation',
       name: 'simulation',
-      component: dashboard,
+      component: backstage,
       children: [
-        
-        
         {
           path: 'checkOut',
           name: 'CheckOut',

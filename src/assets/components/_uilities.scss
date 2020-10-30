@@ -26,9 +26,11 @@ $xl: 1200px;
     }
 }
 
-// body{
-//   background: #f7e9e0;
-// }
+.d-flex-center{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
 
 .bg-contain{
     background-position: center center;
@@ -39,4 +41,7 @@ $xl: 1200px;
     background-position: center center;
     background-size: cover;
     background-repeat: no-repeat;
+}
+.bgi-fixed{
+    background-attachment: fixed
 }

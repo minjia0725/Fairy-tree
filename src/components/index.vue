@@ -1,8 +1,6 @@
 <template>
   <div>
-    <header>
     <customerNavbar></customerNavbar>
-    </header>
     <router-view></router-view>
     <footer>
       <customerFooter></customerFooter>
@@ -11,8 +9,8 @@
 </template>
 
 <script>
-import customerNavbar from "./customerNavber";
-import customerFooter from "./customerFooter";
+import customerNavbar from "./layout/customerNavber";
+import customerFooter from "./layout/customerFooter";
 export default {
   components: {
     customerNavbar,

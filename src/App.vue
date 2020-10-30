@@ -15,7 +15,7 @@ export default {
         if(response.data.success) {
           
         }else {
-          vm.$router.push('/')
+          vm.$router.push('/home')
         }
       });
   },
