@@ -1,0 +1,15 @@
+.favorites{
+  &-img{
+    max-width: 20%;
+  }
+  &-price{
+    font-size: 2rem;
+  }
+  &-del{
+    cursor: pointer;
+    &:hover,&:focus{
+      font-weight:900
+    }
+  }
+  
+}

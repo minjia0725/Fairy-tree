@@ -1,8 +1,27 @@
 <template>
-  <div>
+  <div class="container">
     <loading :active.sync="isLoading"></loading>
     <div class="my-5 row justify-content-center" v-if="!isLoading">
-      <form class="col-md-6" @submit.prevent="payOrder">
+      <div class="col-10">
+        <orderProcess>
+          <i class="far fa-check-circle" slot="change1"></i>
+          <h6
+            class="border border-primary bg-primary text-white text-center rounded py-2"
+            slot="change2"
+          >
+            2.填寫訂單資料
+            <i class="far fa-check-circle"></i>
+          </h6>
+          <h6 class="border border-primary bg-primary text-white text-center rounded py-2"
+            slot="change3"
+          >
+            3.付款 & 完成
+            <i class="far fa-circle" v-if="!order.is_paid"></i>
+            <i class="far fa-check-circle" v-else></i>
+          </h6>
+        </orderProcess>
+      </div>
+      <form class="col-md-10 mt-4" @submit.prevent="payOrder">
         <table class="table">
           <thead>
             <th>品名</th>
@@ -45,6 +64,10 @@
               <td>{{ order.user.address }}</td>
             </tr>
             <tr>
+              <th>付款方式</th>
+              <td>{{ order.user.pay }}</td>
+            </tr>
+            <tr>
               <th>付款狀態</th>
               <td>
                 <span v-if="!order.is_paid">尚未付款</span>
@@ -63,6 +86,8 @@
 
 
 <script>
+import orderProcess from "@/components/components/orderProcess";
+
 export default {
   data() {
     return {
@@ -93,6 +118,9 @@ export default {
         }
       });
     },
+  },
+  components: {
+    orderProcess,
   },
   created() {
     this.orderId = this.$route.params.orderId;

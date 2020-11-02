@@ -1,0 +1,31 @@
+.carts{
+  &-img{
+    width: 120px;;
+  }
+  &-title{
+    overflow : hidden;
+    text-overflow: ellipsis;
+    white-space : nowrap;
+    width: 110px;
+    @include xs {
+      width: 150px;
+    }
+    @include sm {
+      width: 180px;
+      white-space :normal;
+    }
+    @include md {
+      width: 300px;
+    }
+    @include lg {
+      width: auto;
+    }
+  }
+  th{
+    padding-top: .8rem;
+    padding-bottom: .8rem;
+  }
+  &-addordel{
+    cursor: pointer;
+  }
+}

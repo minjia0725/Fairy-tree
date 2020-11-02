@@ -20,6 +20,7 @@
                 style="background-clip: border-box"
                 aria-describedby="button-addon2"
                 id="mail"
+                placeholder="請輸入Email，接收最新消息"
               />
               <div class="input-group-append">
                 <button

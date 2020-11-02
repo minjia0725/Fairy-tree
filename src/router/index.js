@@ -6,13 +6,15 @@ import login from '@/components/admin/login'
 import products from '@/components/admin/products'
 import coupons from '@/components/admin/coupons'
 import order from '@/components/admin/order'
-import checkOut from '@/components/admin/Checkout'
+//客戶端
 import home from '@/components/Client/home'
 import customerProducts from '@/components/Client/customerProducts'
 import customerProduct from '@/components/Client/customerProduct'
+import cart from '@/components/Client/cart'
+import checkOut from '@/components/Client/Checkout'
 import customerCheckOut from '@/components/Client/customerCheckout'
 import favorites from '@/components/Client/favorites'
-import cart from '@/components/Client/cart'
+
 
 
 
@@ -30,7 +32,7 @@ export default new Router({
   routes: [
     {
       path: '*',
-      redirect: '/home'
+      redirect: '/'
     },
     {
       path: '/',
@@ -61,6 +63,16 @@ export default new Router({
           path: 'cart',
           name: 'Cart',
           component: cart,
+        },
+        {
+          path: 'checkOut',
+          name: 'CheckOut',
+          component: checkOut,
+        },
+        {
+          path: 'customerCheckOut/:orderId',
+          name: 'CustomerCheckOut',
+          component: customerCheckOut,
         },
       ]
     },
@@ -99,16 +111,8 @@ export default new Router({
       name: 'simulation',
       component: backstage,
       children: [
-        {
-          path: 'checkOut',
-          name: 'CheckOut',
-          component: checkOut,
-        },
-        {
-          path: 'customerCheckOut/:orderId',
-          name: 'CustomerCheckOut',
-          component: customerCheckOut,
-        },
+        
+        
       ]
     },
   ]

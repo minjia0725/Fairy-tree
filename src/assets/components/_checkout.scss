@@ -1,0 +1,27 @@
+.checkout{
+  .form-control{
+    border: $primary 1px solid;
+    border-radius: 0;
+  }
+  .form-group{
+    margin-bottom: 0.5rem;
+  }
+  label {
+    font-weight: bold;
+  }
+  &-orders{
+    &-img{
+      width: 60px;
+      height: 60px;
+      
+    }
+    &-title{
+      font-size: 14px;
+      
+    }
+  }
+  .sticky-top{
+    top: 80px;
+    z-index: 10;
+  }
+}

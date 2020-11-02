@@ -18,6 +18,8 @@ import VueI18n from 'vue-i18n';
 import zhTW from 'vee-validate/dist/locale/zh_TW'
 import AOS from 'aos';
 import 'aos/dist/aos.css';
+import VueSweetalert2 from 'vue-sweetalert2';
+import 'sweetalert2/dist/sweetalert2.min.css';
 
 // import jquery from 'jquery';
 
@@ -25,6 +27,7 @@ import 'aos/dist/aos.css';
 Vue.config.productionTip = false;
 Vue.use(VueAxios, axios);
 Vue.use(VueI18n);
+Vue.use(VueSweetalert2);
 AOS.init();
 Vue.use(VueAwesomeSwiper, /* { default options with global component } */)
 const i18n = new VueI18n({

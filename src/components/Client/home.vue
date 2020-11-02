@@ -32,12 +32,12 @@
             :style="{ backgroundImage: `url(${item.image})` }"
             class="bg-cover position-relative home-second-bgi"
           >
-            <div class="home-border text-white h4 font-weight-bold">
-              <div
-                class="d-flex-center h-100 home-product-text"
+            <div class="home-border text-white h3 font-weight-bold">
+              <router-link
+                class="d-flex-center h-100 home-product-text" tag="div" :to="{path:'/customerProducts', query: {category: item.title}}"
               >
                 <span>{{ item.title }}</span>
-              </div>
+              </router-link>
             </div>
           </div>
         </div>
@@ -47,7 +47,7 @@
       <div class="row mt-6" data-aos="zoom-out" data-aos-delay="200">
         <div class="col-md-12 mb-8">
           <div
-            class="w-100 home-third-bgi bgi-fixed"
+            class="home-third-bgi bgi-fixed "
             style="
               background-image: url('https://images.unsplash.com/photo-1577991712260-4ee45603dab8?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1050&q=80');
             "
@@ -60,7 +60,7 @@
                 Fairy tree 專為你而生<br />
                 為喜愛韓國流行音樂的你，都能找到想要的商品
               </p>
-              <button class="btn btn-outline-light">SHOP NOW</button>
+              <router-link to="/customerProducts" class="btn btn-outline-light">SHOP NOW</router-link >
             </div>
           </div>
         </div>
@@ -71,22 +71,22 @@
 </template>
 
 <script>
-import swiper from "@/components/swiper";
+import swiper from "@/components/components/swiper";
 export default {
   data() {
     return {
       guided: [
         {
-          title: "暢銷專輯",
-          image: "https://lv2-cdn.azureedge.net/twice/TWICE_SIGNAL.jpg",
-        },
-        {
-          title: "熱門周邊",
+          title: "BTS",
           image:
-            "https://cdn.shopify.com/s/files/1/0069/4203/1983/products/shinee-official-fanlight-lightstick-accessories-shinee-default-title-851922_900x.jpg?v=1582679671",
+            "https://ibighit.com/bts/images/bts/discography/2_cool_4_school/album-cover.jpg",
         },
         {
-          title: "精品海報",
+          title: "TWICE",
+          image: "https://lv2-cdn.azureedge.net/twice/ff169a51fb0e4c73aab0afdb1c196337-TWICE%20EYES%20WIDE%20OPEN_ONLINECOVER.jpg",
+        },
+        {
+          title: "STRAY KIDS",
           image: "https://lv2-cdn.azureedge.net/straykids/TOP-English_ver.jpg",
         },
       ],

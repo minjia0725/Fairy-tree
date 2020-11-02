@@ -37,7 +37,7 @@
 
 <script>
 import $ from "jquery";
-import Pagination from "@/components/pagination";
+import Pagination from "@/components/components/pagination";
 
 export default {
   data() {
