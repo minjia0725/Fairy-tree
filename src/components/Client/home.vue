@@ -9,13 +9,13 @@
       </div>
       <ul class="home-news-group col-md-5 ml-auto mr-auto">
           <li
-            class="border-bottom py-3 text-secondary h5 font-weight-blod font-italic"
+            class="border-bottom py-3 text-primary h5 font-weight-blod font-italic"
             v-for="item in news"
             :key="item.conteont"
             data-aos="fade-left"
             data-aos-delay="150"
           >
-            <span class="text-third pr-3">{{ item.date }}</span
+            <span class="text-secondary pr-3">{{ item.date }}</span
             >{{ item.content }}
           </li>
         </ul>

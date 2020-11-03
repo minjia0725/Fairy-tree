@@ -112,7 +112,6 @@ export default {
       const vm = this;
       const api = `${process.env.APIPATH}api/${process.env.CUSTOMPATH}/pay/${vm.orderId}`;
       this.$http.post(api).then((res) => {
-        console.log(res);
         if (res.data.success) {
           this.getOrder();
         }
@@ -124,7 +123,6 @@ export default {
   },
   created() {
     this.orderId = this.$route.params.orderId;
-    console.log("id", this.orderId);
     this.getOrder();
   },
 };

@@ -1,6 +1,9 @@
 <template>
   <div class="sticky-top">
-    <nav class="navbar navbar-expand-lg navbar-dark w-100 navbar-bg">
+    <nav
+      class="navbar navbar-expand-lg navbar-dark w-100 navbar-bg"
+      :class="{ active: isScroll }"
+    >
       <div class="container-xl">
         <router-link to="/" class="text-decoration-none">
           <h1 class="h2 text-white mb-0">FAIRY TREE</h1>
@@ -29,19 +32,34 @@
           </ul>
           <ul class="navbar-nav h6 ml-auto font-weight-bold">
             <li class="nav-item">
-              <router-link class="nav-link px-2" to="/favorites">
-                <i class="far fa-heart"></i>
+              <router-link
+                class="nav-link"
+                :class="{ 'px-2': !iswidth }"
+                to="/favorites"
+              >
+                <span v-if="iswidth">我的收藏</span>
+                <i class="far fa-heart" v-if="!iswidth"></i>
               </router-link>
             </li>
             <li class="nav-item navbar-cart">
-              <router-link class="nav-link px-2" to="/cart">
-                <i class="fas fa-shopping-cart"></i>
+              <router-link
+                class="nav-link"
+                :class="{ 'px-2': !iswidth }"
+                to="/cart"
+              >
+                <span v-if="iswidth">購物車</span>
+                <i class="fas fa-shopping-cart" v-if="!iswidth"></i>
                 <span v-if="cartLength">({{ cartLength }})</span>
               </router-link>
             </li>
             <li class="nav-item">
-              <router-link class="nav-link px-2" to="/login">
-                <i class="fas fa-user-cog"></i>
+              <router-link
+                class="nav-link"
+                :class="{ 'px-2': !iswidth }"
+                to="/login"
+              >
+                <span v-if="iswidth">後台登入</span>
+                <i class="fas fa-user-cog" v-if="!iswidth"></i>
               </router-link>
             </li>
           </ul>
@@ -56,6 +74,10 @@ export default {
   data() {
     return {
       carts: "",
+      scroll: "",
+      width: "",
+      iswidth: false,
+      isScroll: false,
     };
   },
   methods: {
@@ -75,6 +97,24 @@ export default {
       vm.getCartLength();
       return vm.carts.length;
     },
+  },
+  mounted() {
+    window.addEventListener("scroll", () => {
+      this.scroll = document.documentElement.scrollTop;
+      if (this.scroll !== 0) {
+        this.isScroll = true;
+      } else {
+        this.isScroll = false;
+      }
+    });
+    window.onresize = () => {
+      this.width = document.documentElement.clientWidth;
+      if (this.width > 992) {
+        this.iswidth = false;
+      } else {
+        this.iswidth = true;
+      }
+    };
   },
   created() {
     this.getCartLength();

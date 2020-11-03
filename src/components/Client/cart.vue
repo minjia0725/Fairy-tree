@@ -158,7 +158,6 @@ export default {
       const vm = this;
       vm.isLoading = true;
       this.$http.get(api).then((res) => {
-        console.log(res);
         vm.cartProducts = res.data.data;
         vm.cartProductsLen = vm.cartProducts.carts.length;
         vm.isLoading = false;
@@ -181,7 +180,6 @@ export default {
         qty,
       };
       this.$http.post(api, { data: cart }).then((res) => {
-        console.log(cart);
       });
     },
   },

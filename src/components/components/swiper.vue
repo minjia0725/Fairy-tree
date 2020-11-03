@@ -5,17 +5,19 @@
       <swiper-slide
         v-for="(item, key) in swiper"
         :key="key"
-        style="background-image: url(''); height: 100vh"
+        style="background-image: url('');"
         :style="{ backgroundImage: `url(${item.image})` }"
-        class="bg-cover position-relative"
+        class="bg-cover position-relative swiper-bgi"
       >
-        <div class="swiperbox">
-          <div class="swiperbox-bgi">
+        <div class="d-flex-center h-100">
+          <div class="swiper-box  ">
+          <div class="swiper-box-bg">
             <h1 class="mb-0">FAIRY TREE</h1>
             <div class="text-center mt-2">
             <router-link to="/customerProducts" class="btn font-weight-bold btn-light rounded-0">立即購物 BUY NOW</router-link>
           </div>
           </div>
+        </div>
         </div>
       </swiper-slide>
     </swiper>

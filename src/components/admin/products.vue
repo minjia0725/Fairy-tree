@@ -303,7 +303,7 @@ export default {
       const vm = this;
       vm.isLoading = true;
       this.$http.get(api).then((response) => {
-        console.log(response.data);
+
         vm.isLoading = false;
         vm.products = response.data.products;
         vm.pagination = response.data.pagination;
@@ -343,7 +343,6 @@ export default {
         } else {
           $("#productModal").modal("hide");
           vm.getProducts();
-          console.log("新增失敗");
         }
       });
     },
@@ -378,7 +377,6 @@ export default {
             // vm.temProduct.imageUrl = response.data.imageUrl;//這個沒有雙向綁定
             vm.$set(vm.temProduct, "imageUrl", response.data.imageUrl); //運用$set強制雙向綁定
           } else {
-            console.log(response.data);
             this.$bus.$emit("message:push", response.data.message, "danger");
           }
         });

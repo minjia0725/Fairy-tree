@@ -98,10 +98,11 @@
               <div class="form-group">
                 <label for="paySelect">付款方式</label>
                 <select
+                  :class="{ 'is-invalid': errors.has('pay') }"
                   name="pay"
                   id="paySelect"
                   class="form-control rounded-0"
-                  required="required"
+                  v-validate="'required'"
                   v-model="form.user.pay"
                 >
                   <option value="" disabled>請選擇付款方式</option>
@@ -111,6 +112,9 @@
                   <option value="ApplePay">ApplePay</option>
                   <option value="GooglePay">GooglePay</option>
                 </select>
+                <span class="text-danger" v-if="errors.has('pay')"
+                  >請選擇付款方式</span
+                >
               </div>
               <div class="form-group">
                 <label for="message">留言</label>
@@ -135,24 +139,44 @@
           <div class="col-md-5 checkout">
             <div class="border border-primary px-6 py-7 mt-md-4 sticky-top">
               <h2 class="h3 font-weight-bold">訂單明細</h2>
-              <div class="d-flex justify-content-between mb-2" v-for="(order,key) in cartProducts.carts" :key="key">
+              <div
+                class="d-flex justify-content-between mb-2"
+                v-for="(order, key) in cartProducts.carts"
+                :key="key"
+              >
                 <div class="d-flex">
-                  <img :src="order.product.imageUrl" class="checkout-orders-img" />
+                  <img
+                    :src="order.product.imageUrl"
+                    class="checkout-orders-img"
+                  />
                   <div class="ml-3">
-                    <h5 class="checkout-orders-title">{{order.product.title}}</h5>
-                    <span>{{order.product.price | currency}} / {{order.product.unit}}</span>
+                    <h5 class="checkout-orders-title">
+                      {{ order.product.title }}
+                    </h5>
+                    <span
+                      >{{ order.product.price | currency }} /
+                      {{ order.product.unit }}</span
+                    >
                   </div>
                 </div>
-                <span class="ml-2">x{{order.qty}}</span>
+                <span class="ml-2">x{{ order.qty }}</span>
               </div>
-              <hr class="border-primary">
+              <hr class="border-primary" />
               <div class="d-flex justify-content-between">
                 <span>小計</span>
-                <span>NT {{cartProducts.total | currency}}</span>
+                <span>NT {{ cartProducts.total | currency }}</span>
               </div>
-              <div class="d-flex justify-content-between" v-if="cartProducts.total !== cartProducts.final_total">
+              <div
+                class="d-flex justify-content-between"
+                v-if="cartProducts.total !== cartProducts.final_total"
+              >
                 <span>折扣</span>
-                <span>- NT {{cartProducts.total - cartProducts.final_total | currency}}</span>
+                <span
+                  >- NT
+                  {{
+                    (cartProducts.total - cartProducts.final_total) | currency
+                  }}</span
+                >
               </div>
               <div class="input-group mt-4">
                 <input
@@ -172,12 +196,14 @@
                   >
                     套用優惠碼
                   </button>
-                  </div>
+                </div>
               </div>
-              <hr class="border-primary">
+              <hr class="border-primary" />
               <div class="d-flex justify-content-between">
                 <span class="h3">總計</span>
-                <span class="h3">NT {{cartProducts.final_total | currency}}</span>
+                <span class="h3"
+                  >NT {{ cartProducts.final_total | currency }}</span
+                >
               </div>
             </div>
           </div>
@@ -200,13 +226,13 @@ export default {
           email: "",
           tel: "",
           address: "",
-          pay:"",
+          pay: "",
         },
         message: "",
       },
       cartProducts: {},
-      isLoading:false,
-      coupon_code:""
+      isLoading: false,
+      coupon_code: "",
     };
   },
   methods: {
@@ -218,13 +244,16 @@ export default {
         if (valid) {
           this.$http.post(api, { data: order }).then((res) => {
             if (res.data.success) {
-              vm.$router.push(
-                `/customerCheckOut/${res.data.orderId}`
-              );
+              vm.$router.push(`/customerCheckOut/${res.data.orderId}`);
             }
           });
         } else {
-          alert("欄位不完整，請填寫正確資料");
+          this.$swal.fire({
+            position: "center",
+            width: "20rem",
+            icon: "error",
+            title: "欄位不完整，請填寫正確資料",
+          });
         }
       });
     },
@@ -232,10 +261,10 @@ export default {
       //取得購物車
       const api = `${process.env.APIPATH}api/${process.env.CUSTOMPATH}/cart`;
       const vm = this;
-      vm.isLoading = true
+      vm.isLoading = true;
       this.$http.get(api).then((res) => {
         vm.cartProducts = res.data.data;
-        vm.isLoading = false
+        vm.isLoading = false;
       });
     },
     addCouponCode() {
@@ -245,12 +274,29 @@ export default {
       const coupon = {
         code: vm.coupon_code,
       };
-      vm.isLoading = true;
-      this.$http.post(api, { data: coupon }).then((res) => {
-        vm.getCartProducts();
-        console.log(res)
-        vm.isLoading = false
-      });
+      if (vm.coupon_code === "") {
+        this.$swal.fire({
+          position: "top",
+          width: "20rem",
+          icon: "error",
+          title: "優惠碼不得為空",
+          showConfirmButton: false,
+          timer: 1000,
+        });
+      } else if (vm.coupon_code !== 'FairyTree') {
+        this.$swal.fire({
+          position: "top",
+          width: "20rem",
+          icon: "error",
+          title: "無此優惠碼",
+          showConfirmButton: false,
+          timer: 1000,
+        });
+      } else {
+        this.$http.post(api, { data: coupon }).then((res) => {
+          vm.getCartProducts();
+        });
+      }
     },
   },
   components: {

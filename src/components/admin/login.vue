@@ -50,11 +50,9 @@ export default {
       const api = `${process.env.APIPATH}admin/signin`;
       const vm = this
       this.$http.post(api,vm.user).then((response) => {
-        console.log(response.data);
         if(response.data.success) {
           const token = response.data.token
           const expired = response.data.expired
-          console.log(token,expired);
           document.cookie = `hexToken=${token}; expires=${new Date(expired)}, 31 Dec 9999 23:59:59 GMT;`;
           vm.$router.push('/admin/products') //登入成功路由轉到/dashboard
         }

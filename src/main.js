@@ -20,7 +20,6 @@ import AOS from 'aos';
 import 'aos/dist/aos.css';
 import VueSweetalert2 from 'vue-sweetalert2';
 import 'sweetalert2/dist/sweetalert2.min.css';
-
 // import jquery from 'jquery';
 
 

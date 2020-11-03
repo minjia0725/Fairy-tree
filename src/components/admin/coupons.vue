@@ -224,7 +224,6 @@ export default {
       const api = `${process.env.APIPATH}api/${process.env.CUSTOMPATH}/admin/coupons?page=${page}`;
       vm.isLoading = true;
       this.$http.get(api).then((res) => {
-        console.log(res.data);
         vm.coupons = res.data.coupons;
         vm.pagination = res.data.pagination;
         vm.isLoading = false;

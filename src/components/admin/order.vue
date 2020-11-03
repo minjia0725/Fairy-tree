@@ -54,7 +54,6 @@ export default {
       vm.isLoading = true;
       this.$http.get(api).then((res) => {
         vm.isLoading = false;
-        console.log(res.data);
         vm.Orders = res.data.orders
         vm.pagination = res.data.pagination
       });

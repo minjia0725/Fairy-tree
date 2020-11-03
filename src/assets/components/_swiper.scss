@@ -1,13 +1,27 @@
-.swiperbox{
-  position: absolute;
-  top: 25%;
-  left: 25%;
+.swiper{
   &-bgi{
-    padding: 1rem;
-    background: rgba($primary,.5);
+    height: 60vh;
+    @include sm {
+      height: 80vh;
+    }
+    @include md {
+      height: 90vh;
+    }
   }
-  h1{
-    color: white;
-    font-size: 8rem;
+  &-box{
+    &-bg{
+      padding: 1rem;
+      background: rgba($primary,.5);
+    }
+    h1{
+      color: white;
+      font-size: 3rem;
+      @include sm {
+        font-size: 5rem;
+      }
+      @include md {
+        font-size: 8rem;
+      }
+    }
   }
 }
