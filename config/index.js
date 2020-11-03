@@ -9,7 +9,7 @@ module.exports = {
 
     // Paths
     assetsSubDirectory: 'static',
-    assetsPublicPath: '/',
+    assetsPublicPath: '/Fairy-tree/',
     proxyTable: {},
 
     // Various Dev Server settings
