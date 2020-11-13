@@ -48,11 +48,10 @@
       v-for="(item, id) in guided"
       :key="id"
       :class="{ 'bg-secondary': item.reverse }"
-       data-aos="zoom-out" data-aos-delay="150"
     >
       <div class="container">
         <div class="row mt-8">
-          <div class="col-12 py-3">
+          <div class="col-12 py-3" data-aos="zoom-in" data-aos-delay="150">
             <div
               class="row justify-content-between"
               :class="{ 'flex-row-reverse': item.reverse }"
