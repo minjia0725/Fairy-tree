@@ -137,7 +137,7 @@ export default {
   methods: {
     subscribe () {
       const vm = this
-      const re = `${/^([a-zA-Z0-9])}${(([a-zA-Z0-9])${\.})}${([a-zA-Z0-9]{2,4})${$/}}`
+      const re = /^\w+((-\w+)|(\.\w+))*\@[A-Za-z0-9]+((\.|-)[A-Za-z0-9]+)*\.[A-Za-z]+$/
       if (!re.test(vm.email)) {
         vm.$swal.fire({
           position: 'top',

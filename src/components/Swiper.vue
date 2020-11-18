@@ -4,8 +4,6 @@
     <swiper
       class="swiper"
       :options="swiperOption"
-      data-aos="zoom-out"
-      data-aos-delay="200"
     >
       <swiper-slide
         v-for="(item, key) in swiper"

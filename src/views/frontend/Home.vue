@@ -1,6 +1,7 @@
 <template>
   <div>
-    <swiper></swiper>
+    <swiper data-aos="fade-down"
+      data-aos-delay="200"></swiper>
     <div class="container">
       <div class="row justify-content-between mt-6">
         <div class="col-md-6" data-aos="fade-right" data-aos-delay="150">
